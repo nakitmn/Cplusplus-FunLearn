@@ -1,0 +1,39 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+#include <tchar.h>
+//---------------------------------------------------------------------------
+USEFORM("Register.cpp", Registration);
+USEFORM("Authorisation.cpp", Authorization);
+USEFORM("PupilsMenu.cpp", PupilsFormMenu);
+//---------------------------------------------------------------------------
+int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
+{
+	try
+	{
+		Application->Initialize();
+		Application->MainFormOnTaskBar = true;
+		Application->CreateForm(__classid(TAuthorization), &Authorization);
+		Application->CreateForm(__classid(TRegistration), &Registration);
+		Application->CreateForm(__classid(TPupilsFormMenu), &PupilsFormMenu);
+		Application->Run();
+	}
+	catch (Exception &exception)
+	{
+		Application->ShowException(&exception);
+	}
+	catch (...)
+	{
+		try
+		{
+			throw Exception("");
+		}
+		catch (Exception &exception)
+		{
+			Application->ShowException(&exception);
+		}
+	}
+	return 0;
+}
+//---------------------------------------------------------------------------

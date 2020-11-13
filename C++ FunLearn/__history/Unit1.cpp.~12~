@@ -1,0 +1,99 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Unit1.h"
+#include "Unit3.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TAuthorization *Authorization;
+AnsiString showpas="showpas.png";
+AnsiString hidepas="hidepas.png";
+//---------------------------------------------------------------------------
+__fastcall TAuthorization::TAuthorization(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+
+void OpenRegistration(TForm * auth, TForm* reg){
+	auth->Hide();
+    reg->Show();
+}
+
+void banOnSomeSymbols(System::WideChar &Key){
+    if((Key>='a'&&Key<='z')||(Key>='A'&&Key<='Z')) return;
+	if(isdigit(Key))return;
+	if(Key==VK_BACK) return;
+	Key=0;
+}
+
+void SetMouseEnterDesign(TLabel * a){
+    a->Color=RGB(0, 134, 212);
+}
+
+void SetMouseLeaveDesing(TLabel* a){
+	a->Color=RGB(53, 16, 60);
+}
+//---------------------------------------------------------------------------
+void __fastcall TAuthorization::RegistrationLabelClick(TObject *Sender)
+{
+    OpenRegistration(Authorization,Registration);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAuthorization::LoginEditKeyPress(TObject *Sender, System::WideChar &Key)
+
+{
+	if(Key==VK_RETURN&&LoginEdit->Text!=""){
+		PasswordEdit->SetFocus();
+	}
+	banOnSomeSymbols(Key);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAuthorization::RegistrationLabelMouseEnter(TObject *Sender)
+{
+	 SetMouseEnterDesign(RegistrationLabel);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAuthorization::EnterLabelMouseEnter(TObject *Sender)
+{
+	SetMouseEnterDesign(EnterLabel);
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TAuthorization::ShowPasImageMouseDown(TObject *Sender, TMouseButton Button,
+          TShiftState Shift, int X, int Y)
+{
+	ShowPasImage->Picture->LoadFromFile(showpas);
+	PasswordEdit->PasswordChar= 0;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TAuthorization::ShowPasImageMouseUp(TObject *Sender, TMouseButton Button,
+          TShiftState Shift, int X, int Y)
+{
+		ShowPasImage->Picture->LoadFromFile(hidepas);
+		PasswordEdit->PasswordChar='*';
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TAuthorization::PasswordEditKeyPress(TObject *Sender, System::WideChar &Key)
+
+{
+	banOnSomeSymbols(Key);
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TAuthorization::EnterLabelMouseLeave(TObject *Sender)
+{
+    SetMouseLeaveDesing(EnterLabel);
+}
+//---------------------------------------------------------------------------
+

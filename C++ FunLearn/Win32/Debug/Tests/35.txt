@@ -1,0 +1,21 @@
+﻿first
+Какая из функций будет изменять передаваемое значение?
+void example(int & a) { ... }
+int example(int a, char b) { ... }
+void example() { ... }
+void example(int & a) { ... }
+
+second
+Для возвращения значения функции используется слово 
+return
+.
+
+third
+2
+Выберите функции, которые вернут значения типа float
+float example(float a) { ... }
+void example();
+float GoodLuck(vector<int> a) { ... }
+float example(float a) { ... }
+float GoodLuck(vector<int> a) { ... }
+
